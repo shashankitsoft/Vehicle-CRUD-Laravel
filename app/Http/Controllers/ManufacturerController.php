@@ -15,7 +15,9 @@ class ManufacturerController extends Controller
      */
     public function index()
     {
-        //
+        $mans = Manufacturers::all();
+        
+         return response()->json($mans);
     }
 
     /**
@@ -84,7 +86,15 @@ class ManufacturerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',            
+        ]);
+        
+        Manufacturers::where('id', $id)->update(['name' =>$request->name]);            
+        
+        return response()->json([
+            'message' => 'Successfully updated manufacturer!'
+        ], 201);
     }
 
     /**
@@ -95,6 +105,9 @@ class ManufacturerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Manufacturers::find($id)->delete();
+        return response()->json([
+            'message' => 'Successfully deleted manufacturer!'
+        ], 201);
     }
 }

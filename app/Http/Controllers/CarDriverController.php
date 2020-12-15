@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Models\Cars;
+use App\Models\CarDriver;
 
-class CarController extends Controller
+class CarDriverController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,7 @@ class CarController extends Controller
      */
     public function index()
     {
-        $cars = Cars::all();        
-         return response()->json($cars);
+        //
     }
 
     /**
@@ -38,15 +37,16 @@ class CarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',            
+            'car_id' => 'required|integer',
+            'driver_id' => 'required|integer',            
         ]);
-        $car = new Cars([
-            'name' => $request->name,
-            'manufacturer_id' => $request->manufacturer_id             
+        $cardriver = new CarDriver([
+            'car_id' => $request->car_id,
+            'driver_id' => $request->driver_id             
         ]);
-        $car->save();
+        $cardriver->save();
         return response()->json([
-            'message' => 'Successfully created car!'
+            'message' => 'Successfully mapped car to driver!'
         ], 201);
     }
 
@@ -58,8 +58,7 @@ class CarController extends Controller
      */
     public function show($id)
     {
-        $car = Cars::find($id);
-         return response()->json($car);
+        //
     }
 
     /**
@@ -82,15 +81,7 @@ class CarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string',            
-        ]);
-        
-        Cars::where('id', $id)->update(['name' =>$request->name,'manufacturer_id' =>$request->manufacturer_id]);            
-        
-        return response()->json([
-            'message' => 'Successfully updated car!'
-        ], 201);
+        //
     }
 
     /**
@@ -101,9 +92,6 @@ class CarController extends Controller
      */
     public function destroy($id)
     {
-        Cars::find($id)->delete();
-        return response()->json([
-            'message' => 'Successfully deleted car!'
-        ], 201);
+        //
     }
 }

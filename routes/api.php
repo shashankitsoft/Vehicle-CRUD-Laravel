@@ -26,12 +26,16 @@ Route::group([
     Route::post('signup', 'AuthController@signup');
   
     Route::group([
-      'middleware' => 'auth:api'
+      'middleware' => 'auth:api',
+      // 'middleware' => 'customheader'
     ], function() {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
 
         //Route::get('manufacturer/create', 'ManufacturerComntroller@create');
         Route::resource('manufacturer', 'ManufacturerController');
+        Route::resource('car', 'CarController');
+        Route::resource('driver', 'DriverController');
+        Route::resource('cardriver', 'CarDriverController');
     });
 });
