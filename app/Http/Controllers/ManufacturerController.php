@@ -26,6 +26,7 @@ class ManufacturerController extends Controller
     public function create()
     {
         //
+        
     }
 
     /**
@@ -58,6 +59,9 @@ class ManufacturerController extends Controller
     public function show($id)
     {
         //
+        $man = Manufacturers::find($id);
+       // dd($man);
+        return response()->json($man);
     }
 
     /**
