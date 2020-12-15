@@ -13,9 +13,36 @@ class ManufacturerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $mans = Manufacturers::all();
+
+        /*if(empty($request->search) && empty($request->page)){
+            $mans = Manufacturers::all();
+        } 
+        else{ */
+            if(!empty($request->search)){
+                    $keyword = $request->search;
+                    $query =  Manufacturers::where('name', 'like', '%' . $keyword. '%');
+                
+            }else{
+                $query =  Manufacturers::where('id','!=',0);
+            }
+            
+           
+                $page = $request->has('page') ? $request->get('page') : 1;
+                $limit = $request->has('limit') ? $request->get('limit') : 10;
+
+                $query = $query->limit($limit)->offset(($page - 1) * $limit);
+               
+            
+          
+
+            $mans = $query->get();
+      //  }
+
+     
+
+      
         
          return response()->json($mans);
     }

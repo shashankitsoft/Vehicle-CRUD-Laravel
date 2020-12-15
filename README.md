@@ -136,3 +136,12 @@ body - x-www-form-url-encoded:
 name: Driver 1
 
 * Other routes Similar to Manufacturers
+
+
+* Search Filter and Pagination - List Manufacturer
+
+http://127.0.0.1:8000/api/auth/manufacturer?search=Man&page=1&limit=5
+
+header:
+Authorization: Bearer usertokentokentokentokentoken
+
